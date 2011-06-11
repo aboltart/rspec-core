@@ -6,9 +6,9 @@ module RSpec
 
       # Register an at_exit hook that runs the suite.
       def self.autorun
-        # ABOLTART: Disable autorun because by executing cucumber(0.10.6) + rcov(0.9.9)
+        # Disable autorun because by executing cucumber(0.10.6) + rcov(0.9.9)
         # fails with /active_support/dependencies.rb:235:in `load': no such file to load
-        disable_autorun!
+        disable_autorun! if ARGV.to_s =~ /features/
         return if autorun_disabled? || installed_at_exit? || running_in_drb?
         @installed_at_exit = true
         at_exit { exit(run(ARGV, $stderr, $stdout).to_i) }
